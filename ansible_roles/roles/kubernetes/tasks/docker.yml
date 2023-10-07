@@ -1,0 +1,24 @@
+---
+- name: Add Docker repository
+  yum_repository:
+    name: docker-ce-stable
+    description: Docker CE Stable - $basearch
+    baseurl: https://download.docker.com/linux/centos/7/$basearch/stable
+    gpgcheck: yes
+    gpgkey: https://download.docker.com/linux/centos/gpg
+
+- name: Install Docker CE version {{ docker_version }}
+  yum:
+    name: docker-ce-{{ docker_version }}
+
+- name: Start and enable Docker service
+  service:
+    name: docker
+    enabled: yes
+    state: started
+
+- name: Add vagrant user to the Docker group
+  user:
+    name: vagrant
+    groups: docker
+    append: yes
