@@ -1,0 +1,3 @@
+---
+- name: Enable Ingress controller
+  shell: minikube addons enable ingress
