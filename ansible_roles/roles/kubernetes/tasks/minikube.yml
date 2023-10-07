@@ -1,0 +1,16 @@
+---
+- name: Download minikube version {{ minikube_version }} rpm
+  get_url:
+    url: https://github.com/kubernetes/minikube/releases/download/v{{ minikube_version }}/minikube-{{ minikube_version }}-0.x86_64.rpm
+    dest: /var/tmp/minikube-{{ minikube_version }}.rpm
+    mode: '0644'
+
+- name: Install minikube version {{ minikube_version }} rpm
+  yum:
+    name: /var/tmp/minikube-{{ minikube_version }}.rpm
+    disable_gpg_check: true
+
+- name: Delete minikube version {{ minikube_version }} rpm
+  file:
+    path: /var/tmp/minikube-{{ minikube_version }}.rpm
+    state: absent
