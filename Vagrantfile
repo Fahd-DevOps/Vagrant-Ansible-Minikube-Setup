@@ -24,22 +24,5 @@ Vagrant.configure("2") do |config|
             ansible.playbook = "playbook.yml"
         end
         master.vm.provision "shell", path: "user_setup.sh"
-        # master.vm.provision "shell", inline: <<-SHELL
-        #     # Create fahd user
-        #     sudo useradd -m -s /bin/bash fahd
-
-        #     # Set password for fahd user
-        #     echo 'fahd:123@fk' | sudo chpasswd
-
-        #     # Add fahd to sudoers
-        #     echo 'fahd ALL=(ALL) NOPASSWD:ALL' | sudo tee -a /etc/sudoers
-
-        #     # Disable vagrant user
-        #     sudo usermod --lock vagrant
-
-        #     # Update SSH configuration to use fahd user
-        #     sed -i 's/^.*[Dd]efaultUser.*$/DefaultUser fahd/' /etc/ssh/sshd_config
-        #     sudo systemctl restart sshd
-        # SHELL
     end
 end
