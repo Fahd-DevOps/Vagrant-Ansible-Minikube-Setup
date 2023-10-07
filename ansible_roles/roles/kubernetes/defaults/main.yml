@@ -1,0 +1,4 @@
+---
+minikube_version: 1.25.2
+kubectl_version: 1.25.2
+docker_version: 20.10.14
