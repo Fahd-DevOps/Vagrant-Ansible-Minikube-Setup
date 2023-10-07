@@ -1,0 +1,63 @@
+---
+- name: set bridge-nf-call-iptables = 1
+  lineinfile:
+    path: /etc/sysctl.conf
+    line: net.bridge.bridge-nf-call-iptables = 1
+
+- name: apply sysctl config
+  shell: sysctl -p
+
+- name: start minikube
+  shell: minikube start --vm-driver=none
+- name: Enable ingress controller
+  shell: minikube addons enable ingress
+
+- name: start and enable kubelet service
+  service:
+    name: kubelet
+    enabled: yes
+    state: started
+
+- name: create dir /home/vagrant/bin
+  file:
+    path: /home/vagrant/bin
+    state: directory
+
+- name: add kubernetes repository
+  yum_repository:
+    name: Kubernetes
+    description: Kubernetes
+    baseurl: https://packages.cloud.google.com/yum/repos/kubernetes-el7-x86_64
+    gpgcheck: yes
+    gpgkey: https://packages.cloud.google.com/yum/doc/yum-key.gpg https://packages.cloud.google.com/yum/doc/rpm-package-key.gpg
+
+- name: install kubectl version {{ kubectl_version }}
+  yum:
+    name: kubectl-{{ kubectl_version }}
+
+- name: copy kubectl conf
+  copy:
+    src: /root/.kube
+    dest: /home/vagrant/
+    remote_src: yes
+    owner: vagrant
+    group: vagrant
+
+- name: fix kubectl conf
+  replace:
+    path: /home/vagrant/.kube/config
+    regexp: '/root'
+    replace: '/home/vagrant'
+
+- name: copy minikube conf
+  copy:
+    src: /root/.minikube
+    dest: /home/vagrant/
+    remote_src: yes
+    owner: vagrant
+    group: vagrant
+
+- name: create /vagrant directory
+  file:
+    path: /vagrant
+    state: directory
