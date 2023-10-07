@@ -1,0 +1,22 @@
+---
+- name: Create Directory for basic Start page
+  file:
+    path: /home/vagrant/minikube
+    state: directory
+
+- name: Build Docker image
+  shell: docker build -t hello-world-app:latest /home/vagrant/deployments/
+  args:
+    chdir: /home/vagrant/deployments/
+
+- name: Create a deployment
+  shell: kubectl apply -f /home/vagrant/deployments/hello-world-deployment.yaml
+
+- name: Create Service
+  shell: kubectl apply -f /home/vagrant/deployments/hello-world-service.yaml
+
+- name: Create Ingress
+  shell: kubectl apply -f /home/vagrant/deployments/hello-world-ingress.yaml
+
+- name: Add minikube IP to /etc/hosts
+  shell: sudo /bin/bash -c 'echo $(minikube ip) "localhost">> /etc/hosts'
