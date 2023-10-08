@@ -1,8 +1,8 @@
-## Vagrant and Ansible Playbook for Minikube, Docker, and Kubernetes Setup
+## Automating Minikube, Docker, and Kubernetes with Ansible and Vagrant
 
 ## Overview about the setup
 
-This Ansible playbook and role-based structure are designed to automate the setup of Minikube, Docker, Kubernetes, and a Deployment that says "Hello World SpreadGroup" 
+This Ansible playbook and role-based structure are designed to automate the setup of Minikube, Docker, Kubernetes, and a Deployment that says "Hello World 2024" 
 Vagrant Configuration for Minikube on Fedora 36.
 
 Regarding Vagrant configuration file is designed to set up a virtual machine environment for running Minikube on Fedora 36. It utilizes VirtualBox as the provider to create a development environment for Kubernetes-based applications.
@@ -46,7 +46,7 @@ Before you begin, ensure you have the following:
 
 ## Project Structure
   ```sh
-     SpreadGroupAnsible/ 
+     Task_St/ 
     ├── ansible_roles/
     │   ├── roles
     │        ├── common
