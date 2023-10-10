@@ -19,10 +19,11 @@ Vagrant.configure("2") do |config|
         master.vm.box = IMAGE_NAME
         master.vm.network "private_network", type: "dhcp", virtualbox__intnet:"intnet"
         master.vm.hostname = NODE_NAME
+        master.vm.provision "shell", path: "user_setup.sh"
         master.vm.provision "ansible_local" do |ansible|
             ansible.compatibility_mode = "2.0"
             ansible.playbook = "playbook.yml"
         end
-        master.vm.provision "shell", path: "user_setup.sh"
+        # master.vm.provision "shell", path: "user_setup.sh"
     end
 end
