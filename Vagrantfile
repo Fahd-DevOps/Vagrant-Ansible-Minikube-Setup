@@ -24,6 +24,6 @@ Vagrant.configure("2") do |config|
             ansible.compatibility_mode = "2.0"
             ansible.playbook = "playbook.yml"
         end
-        # master.vm.provision "shell", path: "user_setup.sh"
+        
     end
 end
